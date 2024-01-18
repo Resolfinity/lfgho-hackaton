@@ -10,15 +10,16 @@
   "scripts": {
     "forge-build": "forge clean && forge build",
     "clean": "rm -rf build && rm -rf types",
-    "typechain": "typechain --target ethers-v6 --out-dir types ./forge-out/**/*.json",
+    "typechain": "typechain --target ethers-v6 --out-dir typechain ./forge-out/**/*.json",
     "ts-build": "tsc --p tsconfig.build.json",
-    "dev": "ts-node relay/index.ts"
+    "dev": "ts-node relay/index.ts",
+    "anvil": "anvil --fork-url <url> --block-time 10"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@openzeppelin/contracts": "^5.0.1",
+    "@openzeppelin/contracts": "^4.5.0",
     "@typechain/ethers-v6": "^0.5.1",
     "@types/node": "^20.11.5",
     "dotenv": "^16.3.1",

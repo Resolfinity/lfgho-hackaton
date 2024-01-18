@@ -135,4 +135,4 @@ cache/
 /dist
 
 /broadcast
-/types/**/*
+/typechain

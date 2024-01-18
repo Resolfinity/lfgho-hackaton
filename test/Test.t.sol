@@ -3,8 +3,10 @@ pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
 import {FacilitatorManager} from "../contracts/FacilitatorManager.sol";
+import {GhoToken} from "../contracts/GHOToken.sol";
 
-contract CounterTest is Test {
+contract FullTest is Test {
+    GhoToken public ghoToken;
     FacilitatorManager public facilitatorManager;
 
     function setUp() public {
