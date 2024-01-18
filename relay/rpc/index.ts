@@ -1,10 +1,11 @@
 import { Network as EthersNetwork, ethers } from "ethers";
+import "dotenv/config";
 
-export type Network = "sepolia" | "mumbai" | "localhost";
+export type Network = "mainnet" | "mumbai" | "localhost";
 export type SignerNetwork = "mumbai" | "localhost";
 
 const NETWORK_URI_MAPPING: Record<Network, string | undefined> = {
-  sepolia: process.env.SEPOLIA_NODE_URI,
+  mainnet: process.env.MAINNET_NODE_URI,
   mumbai: process.env.MUMBAI_NODE_URI,
   localhost: process.env.ANVIL_URL || "http://127.0.0.1:8545",
 };
@@ -15,7 +16,9 @@ export const getProvider = (network: Network) => {
   const staticNetwork =
     network === "localhost"
       ? new EthersNetwork("anvil", 7878)
-      : new EthersNetwork("ethereum", 1);
+      : network === "mainnet"
+      ? new EthersNetwork("ethereum", 1)
+      : new EthersNetwork("mumbai", 80001);
 
   return new ethers.JsonRpcProvider(rpc, undefined, {
     staticNetwork,
@@ -24,8 +27,8 @@ export const getProvider = (network: Network) => {
 };
 
 const PRIVATE_KEYS_MAPPING: Record<SignerNetwork, string | undefined> = {
-  mumbai: process.env.MUMBAI_PRIVATE_KEY,
-  localhost: process.env.SEPOLIA_PRIVATE_KEY,
+  mumbai: process.env.PRIVATE_KEY,
+  localhost: process.env.PRIVATE_KEY,
 };
 
 const getPrivateKeyByNetwork = (network: SignerNetwork) => {
