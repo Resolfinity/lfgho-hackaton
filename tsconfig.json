@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "allowUnreachableCode": true,
+    "strictPropertyInitialization": false,
+    "noEmitOnError": true,
+    "experimentalDecorators": true,
+    "outDir": "./dist"
+  },
+  "exclude": ["node_modules", "dist"],
+  "files": ["relay/index.ts"]
+}
