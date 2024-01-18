@@ -133,3 +133,6 @@ dist
 .DS_Store
 cache/
 /dist
+
+/broadcast
+/types/**/*
