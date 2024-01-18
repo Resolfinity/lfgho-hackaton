@@ -1,66 +1,26 @@
-## Foundry
+# ZK GHO Facilitator by Resolfinity
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Demo for LFGHO hackaton
 
-Foundry consists of:
+todo: Add description and diagrams
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## How to run
 
-## Documentation
+Foundry, Node.js, Npm should be installed.
 
-https://book.getfoundry.sh/
+```
+git clone git@github.com:Resolfinity/lfgho-hackaton.git
 
-## Usage
+yarn
 
-### Build
+yarn forge-build
 
-```shell
-$ forge build
+yarn typechain
+
 ```
 
-### Test
+Copy .env.example to .env and fill in all the vars.
 
-```shell
-$ forge test
-```
+To run tests, `anvil && yarn test`
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+To run relay, `yarn dev`
