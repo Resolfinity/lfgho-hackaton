@@ -1,5 +1,5 @@
-import { GhoToken } from "./../types/GHOToken.sol/GhoToken";
-import { GhoToken__factory } from "./../types/factories/GHOToken.sol/GhoToken__factory";
+import { GhoToken } from "../typechain/GHOToken.sol/GhoToken";
+import { GhoToken__factory } from "../typechain/factories/GHOToken.sol/GhoToken__factory";
 import { capListener } from "./cap-listener";
 import { getStorageProof } from "./srorage-proof-getter";
 import { getProvider, getSigner } from "./rpc";

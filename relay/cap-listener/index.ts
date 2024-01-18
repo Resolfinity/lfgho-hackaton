@@ -2,7 +2,7 @@ import { JsonRpcProvider } from "ethers";
 import { EventEmitter } from "events";
 
 import fs from "fs";
-import { GhoToken } from "../../types/GHOToken.sol/GhoToken";
+import { GhoToken } from "../../typechain/GHOToken.sol/GhoToken";
 
 if (!fs.existsSync("./db.txt")) {
   fs.writeFileSync("./db.txt", "0");
