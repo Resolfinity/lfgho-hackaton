@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "commonjs",
-    "esModuleInterop": true,
+    "target": "ES2018",
+    "module": "CommonJS",
     "strict": true,
-    "declaration": true,
-    "resolveJsonModule": true,
-    "allowUnreachableCode": true,
-    "strictPropertyInitialization": false,
-    "noEmitOnError": true,
-    "experimentalDecorators": true,
-    "outDir": "./dist"
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["node_modules", "dist"],
-  "files": ["relay/index.ts"]
+  "files": ["./hardhat.config.ts"],
+  "exclude": ["dist", "node_modules"],
+  "include": ["./test", "./src", "./scripts"]
 }

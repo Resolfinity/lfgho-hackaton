@@ -1,14 +1,18 @@
 import { GhoToken } from "../typechain/GHOToken.sol/GhoToken";
 import { GhoToken__factory } from "../typechain/factories/GHOToken.sol/GhoToken__factory";
 import { capListener } from "./cap-listener";
-import { getStorageProof } from "./srorage-proof-getter";
+import { getStorageProof } from "./proofs";
 import { getProvider, getSigner } from "./rpc";
 import "dotenv/config";
+import fs from "fs";
 
 const GHOAddress = "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f";
 const FlashMinterFacilitator = "0xb639D208Bcf0589D54FaC24E655C79EC529762B8";
 const FlashMinterBucketCapacitySlot =
   "0xac4b83f0960b67ce4032848c9a1828523a1bd87e5074df3b312a61a62a668311";
+
+// initial cap reset, in prod shoud be stored in db
+fs.writeFileSync("./db.txt", "0");
 
 const main = async () => {
   console.log("Starting relay...");
@@ -24,13 +28,13 @@ const main = async () => {
   );
 
   sepoliaCapListener.on("cap-updated", async (cap: bigint) => {
-    console.log("cap-updated", cap);
+    console.log("cap updated to the new value:", cap);
     const capStorageProof = await getStorageProof(
       mainnetProvider,
       GHOAddress,
       FlashMinterBucketCapacitySlot
     );
-    console.log("capStorageProof", capStorageProof);
+    // console.log("capStorageProof", capStorageProof);
   });
 };
 

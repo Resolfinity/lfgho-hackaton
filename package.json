@@ -3,17 +3,14 @@
   "version": "1.0.0",
   "description": "Demo for LFGHO hackaton",
   "main": "index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
   "scripts": {
     "forge-build": "forge clean && forge build",
     "clean": "rm -rf build && rm -rf types",
     "typechain": "typechain --target ethers-v6 --out-dir typechain ./forge-out/**/*.json",
     "ts-build": "tsc --p tsconfig.build.json",
     "dev": "ts-node relay/index.ts",
-    "anvil": "anvil --fork-url <url> --block-time 10"
+    "test": "hardhat compile && hardhat test",
+    "anvil": "anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/aMQv0cyCtUd4ZK2s8ltp6lr1y54Gi7wH --block-time 10"
   },
   "keywords": [],
   "author": "",
@@ -21,11 +18,20 @@
   "devDependencies": {
     "@openzeppelin/contracts": "^4.5.0",
     "@typechain/ethers-v6": "^0.5.1",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.11.5",
     "dotenv": "^16.3.1",
     "ethers": "^6.10.0",
+    "hardhat": "^2.19.4",
     "ts-node": "^10.9.2",
     "typechain": "^8.3.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.1"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@noir-lang/backend_barretenberg": "^0.22.0",
+    "@noir-lang/noir_js": "^0.22.0",
+    "@noir-lang/noir_wasm": "0.19.4"
   }
 }

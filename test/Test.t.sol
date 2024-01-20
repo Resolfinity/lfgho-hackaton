@@ -2,25 +2,15 @@
 pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
-import {FacilitatorManager} from "../contracts/FacilitatorManager.sol";
-import {GhoToken} from "../contracts/GHOToken.sol";
+import {ZkFacilitatorManager} from "../contracts/ZKFacilitatorManager.sol";
+import {BridgedGhoToken} from "../contracts/BridgedGHOToken.sol";
 
 contract FullTest is Test {
-    GhoToken public ghoToken;
-    FacilitatorManager public facilitatorManager;
+    BridgedGhoToken public ghoToken;
+    ZkFacilitatorManager public facilitatorManager;
 
     function setUp() public {
-        facilitatorManager = new FacilitatorManager();
+        facilitatorManager = new ZkFacilitatorManager();
         facilitatorManager.setNumber(0);
-    }
-
-    function test_Increment() public {
-        facilitatorManager.increment();
-        assertEq(facilitatorManager.number(), 1);
-    }
-
-    function testFuzz_SetNumber(uint256 x) public {
-        facilitatorManager.setNumber(x);
-        assertEq(facilitatorManager.number(), x);
     }
 }
