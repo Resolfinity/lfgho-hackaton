@@ -1,6 +1,7 @@
 import { JsonRpcProvider } from "ethers";
 import TOML from "@iarna/toml";
 import fs from "fs";
+import { exec } from "child_process";
 
 type Serial = {
   proof: number[];
@@ -34,15 +35,6 @@ export const getStorageProof = async (
     proofPath = proofPath + layer;
   }
 
-  // encode this into bytes which can be interpreted by the prover
-  // The rlp encoded proof path is right padded at each node with 0s and then concatenated
-  const key = serialise(theProof.key);
-  const value = serialise(theProof.value, true);
-  const proof = serialise(proofPath);
-  const storage = serialise(storageHash);
-
-  console.log("storagehash", storageHash);
-
   const rawProofData = {
     proof: proofPath,
     key: theProof.key,
@@ -51,6 +43,17 @@ export const getStorageProof = async (
   };
 
   fs.writeFileSync("proof.json", JSON.stringify(rawProofData, null, 2));
+
+  return rawProofData;
+};
+
+export const buildProverToml = async (rawProofData: any) => {
+  // encode this into bytes which can be interpreted by the prover
+  // The rlp encoded proof path is right padded at each node with 0s and then concatenated
+  const key = serialise(rawProofData.key);
+  const value = serialise(rawProofData.value, true);
+  const proof = serialise(rawProofData.proof);
+  const storage = serialise(rawProofData.storage);
 
   const proofData: Serial = {
     proof,
@@ -62,7 +65,27 @@ export const getStorageProof = async (
   fs.writeFileSync("proofData.json", JSON.stringify(proofData, null, 2));
 
   const proofAsToml = TOML.stringify(proofData);
-  // console.log("proofAsToml: ", proofAsToml);
-  fs.writeFileSync("Prover.toml", proofAsToml);
+  const tomlFilePath = "circuits/Prover.toml";
+  fs.writeFileSync(tomlFilePath, proofAsToml);
   return proofData;
+};
+
+export const runNargoProve = async (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    exec("cd circuits && nargo prove && cd ..", (err, stdout, stderr) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      }
+
+      console.log('Proof generated in "circuits/proofs/bucket_proof.proof"');
+
+      const proof = fs.readFileSync(
+        "circuits/proofs/bucket_proof.proof",
+        "utf8"
+      );
+      console.log("Proof: ", proof);
+      resolve(proof);
+    });
+  });
 };

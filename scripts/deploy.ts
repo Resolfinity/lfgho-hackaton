@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
-const L2FlashMinterAddress = ethers.Wallet.createRandom().address;
+const L2FlashMinterAddress = "0x8a22757dea7cc571cadee8d9749da549d4af4a9d"; // some random address since we don't mock flash minter
 const INITIAL_BUCKET_CAP = 100000000000000000n;
 
 const FACILITATOR_MANAGER_ROLE =

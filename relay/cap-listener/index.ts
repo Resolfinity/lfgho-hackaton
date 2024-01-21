@@ -1,47 +1,30 @@
 import { JsonRpcProvider } from "ethers";
 import { EventEmitter } from "events";
 
-import fs from "fs";
-import { GhoToken } from "../../typechain/GHOToken.sol/GhoToken";
+import { IGhoToken } from "../../typechain";
 
-if (!fs.existsSync("./db.txt")) {
-  fs.writeFileSync("./db.txt", "0");
-}
-
-const readCapFromDb = () => {
-  const capStringified = fs.readFileSync("./db.txt", "utf-8") as string;
-  return BigInt(capStringified);
-};
-
-const writeCapToDb = (cap: bigint) => {
-  fs.writeFileSync("./db.txt", cap.toString());
-};
-
-const getUpdatedCap = async (
-  gtoToken: GhoToken,
+export const getUpdatedCap = async (
+  gtoToken: IGhoToken,
   flashminterFacilitator: string
 ) => {
   const cap = await gtoToken.getFacilitatorBucket(flashminterFacilitator);
   return cap[0];
 };
 
+// in production, it is meant to lister to the mainnet cap and run proof building if cap was changed
+// here we don't use this code, reading getUpdatedCap once in ./relay/index.ts
 export const capListener = (
   provider: JsonRpcProvider,
-  gtoToken: GhoToken,
+  gtoToken: IGhoToken,
   flashminterFacilitator: string
 ) => {
   const emitter = new EventEmitter();
-  let previousCap = readCapFromDb();
+
   provider.on("block", async (blockNumber) => {
     console.log("new block in mainnet", blockNumber);
     const currentCap = await getUpdatedCap(gtoToken, flashminterFacilitator);
-    console.log("currentCap", currentCap);
-    if (currentCap === previousCap) {
-      console.log("cap is the same as before, skipping...");
-      return;
-    }
-    writeCapToDb(currentCap);
-    previousCap = currentCap;
+    // todo: compare currentCap with previous cap stored in db
+    // if changed, emit event that will trigger proof building
     emitter.emit("cap-updated", currentCap);
   });
   return emitter;

@@ -1,6 +1,5 @@
 use dep::std;
 use dep::noir_trie_proofs;
-mod utils;
 
 global DEPTH: Field = 5;
 global PROOF_LEN: Field = 2660;
