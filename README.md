@@ -20,6 +20,8 @@ The main idea here is to:
 
 [LFGHO Project page](https://ethglobal.com/showcase/gho-zk-facilitator-x9rdg)
 
+![Zk-gho-facilitator-scheme](https://github.com/Resolfinity/lfgho-hackaton/blob/main/docs/zk%20gho%20facilitator.png)
+
 ## Zk stack
 
 For this project, we've chosen Noir Language.
