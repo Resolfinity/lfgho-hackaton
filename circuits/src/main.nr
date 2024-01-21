@@ -7,9 +7,9 @@ global PROOF_LEN: Field = 2660;
 
 fn main(
     proof: [u8; PROOF_LEN],
-    key: [u8;32], // key to the storage slot
-    storage: pub [u8; 32],
-    value: [u8; 32] // The value in the storage slot
+    key: [u8; 32], // key to the storage slot
+    storage: pub [u8; 32], // storage root
+    value: pub [u8; 32] // The value in the storage slot
 ) {
     let depth = DEPTH;
 
