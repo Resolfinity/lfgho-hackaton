@@ -1,9 +1,0 @@
-[profile.default]
-src = "contracts"
-out = "forge-out"
-libs = ["lib"]
-fs_permissions = [
-  { access = "read-write", path = "./" },
-  { access = "read-write", path = "/tmp/" },
-]
-ffi = true
